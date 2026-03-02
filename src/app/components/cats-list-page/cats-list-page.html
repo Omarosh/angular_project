@@ -1,15 +1,22 @@
 <div class="selection-container">
   <div class="select-wrap" style="width: 30%;">
-    <select class="form-select" [(ngModel)]="selectedBreedID" (change)="showedCats()">
-        @for(breed of breeds ; track breed.id){
-            <option [value]=breed.id>{{breed.name}}</option>
-        }
+    <select class="form-select" [(ngModel)]="selectedBreedID">
+      @for(breed of breeds ; track breed.id){
+      <option [value]=breed.id>{{breed.name}}</option>
+      }
     </select>
   </div>
 </div>
 
+@if(catResource.isLoading()){
+<div class="loading-container">
+  <div class="loading-spinner"></div>
+</div>
+}
+
+
 <div class="cats-container" style="margin-top: 30px;">
-  @for (cat of filteratedList; track $index) {
+  @for (cat of catResource.value(); track $index) {
   <div class="card" style="width: 18rem;" appShadow>
     <div class="img-wrapper">
       <img [src]="cat.url" class="card-img-top" [alt]="cat.id" appZoom>
@@ -20,22 +27,18 @@
         {{ cat.expanded ? cat.description : (cat.description | wordslice:3) }}
 
         @if(!cat.expanded && cat.description.split(' ').length > 3){
-          <span
-          class="dots"
-          (click)="toggleDescription(cat)">
+        <span class="dots" (click)="toggleDescription(cat)">
           ...See more
         </span>
         }
 
         @if(cat.expanded){
-          <span 
-          class="dots"
-          (click)="toggleDescription(cat)">
+        <span class="dots" (click)="toggleDescription(cat)">
           ...See less
         </span>
         }
       </p>
-      <button class="btn" [routerLink]="['/aboutcats', cat.catId]" >About Me</button>
+      <button class="btn" [routerLink]="['/aboutcats', cat.catId]">About Me</button>
     </div>
   </div>
   }

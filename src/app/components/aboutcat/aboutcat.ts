@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ICat } from '../types/icat';
-import { CatData } from '../services/cat-data';
+import { CatDataService } from '../services/cat-data.service';
 
 @Component({
   selector: 'app-aboutcat',
@@ -13,13 +13,13 @@ export class Aboutcat implements OnInit {
   id: number | null = null;
   selectedCat: ICat | null = null;
 
-  constructor(private active: ActivatedRoute, private catslist: CatData) {}
+  constructor(private active: ActivatedRoute, private catService: CatDataService) {}
 
   ngOnInit(): void {
     this.id = Number(this.active.snapshot.paramMap.get('ID'));
 
     if (!isNaN(this.id)) {
-      this.catslist.getCatById(this.id).subscribe(cat => {
+      this.catService.getCatById(this.id).subscribe(cat => {
         this.selectedCat = cat;
       });
     }

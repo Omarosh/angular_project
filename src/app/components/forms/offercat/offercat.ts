@@ -2,9 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ICat } from '../../types/icat';
-import { CatData } from '../../services/cat-data';
-import { Observable } from 'rxjs';
 import { firstValueFrom } from 'rxjs';
+import { CatDataService } from '../../services/cat-data.service';
 
 @Component({
   selector: 'app-offercat',
@@ -19,7 +18,7 @@ export class Offercat implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private catService: CatData
+    private catService: CatDataService
   ) {}
 
   ngOnInit(): void {

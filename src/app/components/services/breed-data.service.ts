@@ -4,7 +4,7 @@ import { IBreeds } from '../types/ibreeds';
 @Injectable({
   providedIn: 'root',
 })
-export class BreedData {
+export class BreedDataService {
 
   breedsList:IBreeds[] = []
   constructor(){
